@@ -1,12 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class MyAccount extends StatefulWidget {
   @override
   _MyAccountState createState() => _MyAccountState();
 }
 
 class _MyAccountState extends State<MyAccount> {
+    Future <void> logout()async{
+    FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context,MaterialPageRoute(
+    builder: (BuildContext context)=>Signin()));
+  }
   @override
   Widget build(BuildContext context) {
        return  Scaffold(
@@ -158,12 +165,8 @@ appBar: AppBar(
                       child:FlatButton(
                       colorBrightness: Brightness.dark,
                       padding: EdgeInsets.all(20),
-                                 onPressed: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Signin()
-              ));
-              },
+                                 onPressed: logout
+              ,
                       textColor: cyandeg2,
                       child: Text("Log Out"),
             ), 

@@ -66,7 +66,7 @@ class Privacy extends StatelessWidget {
             child:Linkify(
               onOpen: _onOpen,
             text:" For a better experience, while using our Service, I may require you to provide us with certain personally identifiable information. The information that I request will be retained on your device and is not collected by me in any way.The app does use third party services that may collect information used to identify you.Link to privacy policy of third party service providers used by the app https://policies.google.com/privacy ",
-            linkStyle: TextStyle(fontSize: 10 ,color: cyandeg2),
+            linkStyle: TextStyle(fontSize: 13 ,color: cyandeg1),
             style:TextStyle(fontSize: 10 ,color: cyandeg2)
           ),
         ),

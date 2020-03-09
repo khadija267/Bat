@@ -1,17 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:noiseplug/drawer/terms.dart';
-//import 'package:noiseplug/drawer/terms.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class Signup extends StatefulWidget {
-  
   @override
   _SignupState createState() => _SignupState();
 }
 
 class _SignupState extends State<Signup> {
     String dropdownValue = 'Personal Use';
+    final  formState =GlobalKey<FormState>();
+  String _email,_password;
+  Future<void> signup()async{
+                       if(formState.currentState.validate()){
+                       formState.currentState.save();
+                         try{
+                            AuthResult result =
+                    await FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: _email, password: _password);
+                        FirebaseUser fireuser = result.user ;
+                       // fireuser.sendEmailVerification();
+                        Navigator.pushReplacement(context,MaterialPageRoute(
+                          builder: (BuildContext context)=>Terms()));
+                         }
+                         catch(e){
+                           print(e.message);
+                         }
+                  }
+                
+              }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +57,15 @@ class _SignupState extends State<Signup> {
       child:SingleChildScrollView(
         child: Column(
         children: <Widget>[
-             Padding(
+            Padding(
                padding: EdgeInsets.only(top: 70),
-               child: Text('NOISEPLUG',
-                   textAlign: TextAlign.center,
-                   style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,
-                   color: cyandeg1
-                    ),
-             ),
+               child: Container(
+                        child: Image.asset(
+                          'images/logo.png',
+                         height: 260.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
              ),
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -101,11 +122,18 @@ class _SignupState extends State<Signup> {
                padding: const EdgeInsets.symmetric(vertical : 30,horizontal: 30),
                child: Builder(
                  builder: (context)=>Form(
-                   //key: _formkey,
+                   key: formState,
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget>[
                        TextFormField(
+                          validator: (val){
+                           if(val.isEmpty){
+                             return "please enter your email";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_email=val,
                          autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
@@ -128,6 +156,16 @@ class _SignupState extends State<Signup> {
                //key: key,
                        ),
                              TextFormField(
+                               validator: (val){
+                           if(val.isEmpty){
+                             return "please enter your password";
+                           }
+                           else if(val.length<8){
+                             return "at least 8 chars";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_password=val,
                                obscureText: true,
                          autofocus: true,
                          decoration: InputDecoration(
@@ -240,12 +278,7 @@ class _SignupState extends State<Signup> {
                          child: RaisedButton(
                            disabledColor: Colors.grey,
                            disabledTextColor: Colors.black,
-                         onPressed: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Terms()
-              ));
-              },
+                         onPressed: signup,
                          color:bgcolor,
                          colorBrightness: Brightness.dark,
                          child: Text('Sign UP',
@@ -322,10 +355,4 @@ class _SignupState extends State<Signup> {
      
   );
   }
-}
-
-
-
-void signinbutton(){
-
 }

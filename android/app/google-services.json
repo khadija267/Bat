@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "9545015522",
+    "firebase_url": "https://noiseplug-b34ac.firebaseio.com",
+    "project_id": "noiseplug-b34ac",
+    "storage_bucket": "noiseplug-b34ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9545015522:android:3cf72993777e8f0997febb",
+        "android_client_info": {
+          "package_name": "com.example.noiseplug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9545015522-0b64vrou5mjelmci3jftn80sof5d31q0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3-QM_KMkXbkuWleEMTSEYJw9RTLJ0osA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9545015522-0b64vrou5mjelmci3jftn80sof5d31q0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

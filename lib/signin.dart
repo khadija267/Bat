@@ -1,17 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:noiseplug/start.dart';
 import 'package:noiseplug/styles.dart';
- import 'package:noiseplug/signup.dart';
-// import 'package:noiseplug/start.dart';
-
+import 'package:noiseplug/signup.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 class Signin extends StatefulWidget {
   @override
   _SigninState createState() => _SigninState();
 }
 
 class _SigninState extends State<Signin> {
-  //final _formkey=GlobalKey<FormState>();
-//  var backcolor =Color(0xff1d6595);
+  final  formState =GlobalKey<FormState>();
+  String _email,_password;
+  Future<void> login()async{
+                       if(formState.currentState.validate()){
+                       formState.currentState.save();
+                         try{
+                            AuthResult result =
+                    await FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: _email, password: _password);
+                        FirebaseUser fireuser = result.user ;
+                        Navigator.pushReplacement(context,MaterialPageRoute(
+                          builder: (BuildContext context)=>Start()));
+                         }
+                         catch(e){
+                           print(e.message);
+                         }
+                  }
+                
+              }
   @override
   
   
@@ -36,6 +52,7 @@ class _SigninState extends State<Signin> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height
       ,
+      //LOGO INSTEAD ==>
      // color: bgcolor,
       // decoration: BoxDecoration(
       //   image: DecorationImage(
@@ -48,15 +65,18 @@ class _SigninState extends State<Signin> {
       child:SingleChildScrollView(
         child: Column(
         children: <Widget>[
-             Padding(
+        
+          Padding(
                padding: EdgeInsets.only(top: 70),
-               child: Text('NOISEPLUG',
-                   textAlign: TextAlign.center,
-                   style: TextStyle(fontSize: 35,fontWeight: FontWeight.bold,
-                   color: cyandeg1
-                    ),
+               child: Container(
+                        child: Image.asset(
+                          'images/logo.png',
+                         height: 260.0,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
              ),
-             ),
+             
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceAround,
                children: <Widget>[
@@ -112,11 +132,18 @@ class _SigninState extends State<Signin> {
                padding: const EdgeInsets.symmetric(vertical : 30,horizontal: 30),
                child: Builder(
                  builder: (context)=>Form(
-                   //key: _formkey,
+                   key: formState,
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget>[
                        TextFormField(
+                         validator: (val){
+                           if(val.isEmpty){
+                             return "please enter your email";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_email=val,
                          autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
@@ -139,7 +166,18 @@ class _SigninState extends State<Signin> {
                           ),
                //key: key,
                        ),
-                                              TextFormField(obscureText: true,
+             TextFormField(
+               validator: (val){
+                           if(val.isEmpty){
+                             return "please enter your password";
+                           }
+                           else if(val.length<8){
+                             return "at least 8 chars";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_password=val,
+                         obscureText: true,
                          autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
@@ -168,12 +206,7 @@ class _SigninState extends State<Signin> {
                          child: RaisedButton(
                            disabledColor: Colors.grey,
                            disabledTextColor: Colors.black,
-                         onPressed: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Start()
-              ));
-              },
+                         onPressed: login,
                          color:bgcolor,
                          colorBrightness: Brightness.dark,
                          child: Text('Sign In',

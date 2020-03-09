@@ -6,13 +6,33 @@ import 'package:noiseplug/drawer/privacy.dart';
 import 'package:noiseplug/drawer/terms.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Start extends StatefulWidget {
+
   @override
   _StartState createState() => _StartState();
 }
 
 class _StartState extends State<Start> {
+  FirebaseUser user;
+  Future<void>getUserData()async{
+    FirebaseUser userData=await FirebaseAuth.instance.currentUser();
+    setState(() {
+      user=userData;
+    });
+
+  }
+  Future <void> logout()async{
+    FirebaseAuth.instance.signOut();
+    Navigator.pushReplacement(context,MaterialPageRoute(
+    builder: (BuildContext context)=>Signin()));
+  }
+  @override
+  void initState() {
+    super.initState();
+    getUserData();
+  }
   @override
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
     int _selectedIndex = 0;
@@ -58,7 +78,9 @@ class _StartState extends State<Start> {
                 color: bgcolor
               ),
               
-              accountEmail:Text("test@gmail.com",style: TextStyle(color: cyandeg1)),
+              accountEmail:user.email.isEmpty?
+               Text("Not Provided Email",style: TextStyle(color: cyandeg1)):
+               Text("${user.email}",style: TextStyle(color: cyandeg1)),
               accountName: Text("User Name",style: TextStyle(color: cyandeg2)),
                 currentAccountPicture:  GestureDetector(
                 child: new CircleAvatar(
@@ -126,12 +148,8 @@ class _StartState extends State<Start> {
             ListTile(
               title: Text("Log Out",style: TextStyle(color: cyandeg1),),
               trailing: Icon(Icons.power_settings_new,color: iconcolor,),
-                            onTap: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Signin()
-              ));
-              }
+                            onTap: logout
+              
 
             ),
             ListTile(
