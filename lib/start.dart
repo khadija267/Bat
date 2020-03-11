@@ -81,13 +81,14 @@ class _StartState extends State<Start> {
               accountEmail:user.email.isEmpty?
                Text("Not Provided Email",style: TextStyle(color: cyandeg1)):
                Text("${user.email}",style: TextStyle(color: cyandeg1)),
-              accountName: Text("User Name",style: TextStyle(color: cyandeg2)),
+              accountName: Text("Company Name",style: TextStyle(color: cyandeg2)),
                 currentAccountPicture:  GestureDetector(
                 child: new CircleAvatar(
-                  backgroundImage: AssetImage("images/user.png"),
+                  
+                  backgroundImage: AssetImage("images/logo.png",),
                   backgroundColor: bgcolor,
                 ),
-                onTap: () => print("User Name"),
+              //  onTap: () => print("User Name"),
               ),
               
               // decoration: BoxDecoration(

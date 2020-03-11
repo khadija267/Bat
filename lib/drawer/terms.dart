@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/start.dart';
 import 'package:noiseplug/styles.dart';
 class Terms extends StatelessWidget {
@@ -169,8 +170,12 @@ class Terms extends StatelessWidget {
 ),
                            disabledColor: Colors.grey,
                            disabledTextColor: Colors.black,
-                         onPressed: (){},
-                         color: bgcolor,
+  onPressed: (){
+                Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context)=>Signin()
+              ));
+              },                         color: bgcolor,
                          colorBrightness: Brightness.dark,
                          child: 
                           Text('Deny',

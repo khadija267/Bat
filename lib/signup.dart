@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:noiseplug/crud.dart';
 import 'package:noiseplug/drawer/terms.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
@@ -11,9 +12,24 @@ class Signup extends StatefulWidget {
 }
 
 class _SignupState extends State<Signup> {
-    String dropdownValue = 'Personal Use';
+    String _plan = 'Personal Use';
     final  formState =GlobalKey<FormState>();
-  String _email,_password;
+  String _email,_password,_phone,_name;
+  CrudFire crud=CrudFire();
+  addinfo(){
+    if(formState.currentState.validate()){
+      formState.currentState.save();
+      crud.create({
+        'Company Name':_name,
+        'Email':_email,
+        'Password':_password,
+        'Phone Number':_phone,
+        'Plan':_plan
+
+      });
+
+    }
+  }
   Future<void> signup()async{
                        if(formState.currentState.validate()){
                        formState.currentState.save();
@@ -22,7 +38,8 @@ class _SignupState extends State<Signup> {
                     await FirebaseAuth.instance.createUserWithEmailAndPassword(
                     email: _email, password: _password);
                         FirebaseUser fireuser = result.user ;
-                       // fireuser.sendEmailVerification();
+                      //  fireuser.sendEmailVerification();
+                        addinfo();
                         Navigator.pushReplacement(context,MaterialPageRoute(
                           builder: (BuildContext context)=>Terms()));
                          }
@@ -70,11 +87,7 @@ class _SignupState extends State<Signup> {
              Row(
                mainAxisAlignment: MainAxisAlignment.spaceAround,
                children: <Widget>[
-                 InkWell(
-                   onTap: (){
-                     Navigator.pushNamed(context, '/inclass');
-                   },
-                   child: Padding(
+                 Padding(
                    padding:EdgeInsets.only(top: 130,left: 10),
                    child: FlatButton(
                    onPressed:(){
@@ -93,7 +106,7 @@ class _SignupState extends State<Signup> {
                  ),
 
 
-                 ),
+                 
                  
                  Padding(
                    
@@ -126,6 +139,37 @@ class _SignupState extends State<Signup> {
                    child: Column(
                      mainAxisAlignment: MainAxisAlignment.start,
                      children: <Widget>[
+                       TextFormField(
+                         validator: (val){
+                           if(val.isEmpty){
+                             return "please enter company name";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_name=val,
+
+                         autofocus: true,
+                         decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(      
+                      borderSide: BorderSide(color: bgcolor),   
+                      ),  
+              focusedBorder: UnderlineInputBorder(
+                      borderSide: BorderSide(color: cyandeg2),
+                   ), 
+                           icon: Padding(
+                             padding: EdgeInsets.only(bottom: 2),
+                             child: Icon(Icons.account_balance ,color: iconcolor,),
+                           ),
+                           
+                          labelText: 'Company Name',
+                          labelStyle: TextStyle(
+                            color: cyandeg2,
+                            
+                          ),
+
+                          ),
+               //key: key,
+                       ),
                        TextFormField(
                           validator: (val){
                            if(val.isEmpty){
@@ -190,30 +234,15 @@ class _SignupState extends State<Signup> {
                           ),
                //key: key,
                        ),
-             TextFormField(
-                         autofocus: true,
-                         decoration: InputDecoration(
-                        enabledBorder: UnderlineInputBorder(      
-                      borderSide: BorderSide(color: bgcolor),   
-                      ),  
-              focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(color: cyandeg2),
-                   ), 
-                           icon: Padding(
-                             padding: EdgeInsets.only(bottom: 2),
-                             child: Icon(Icons.account_balance ,color: iconcolor,),
-                           ),
-                           
-                          labelText: 'Company Name',
-                          labelStyle: TextStyle(
-                            color: cyandeg2,
-                            
-                          ),
-
-                          ),
-               //key: key,
-                       ),
-                                              TextFormField(
+             
+                           TextFormField(
+                                  validator: (val){
+                           if(val.length<14){
+                             return "please enter a valid number";
+                           }
+                           return null;
+                         },
+                         onSaved: (val)=>_phone=val,
                          autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
@@ -242,7 +271,7 @@ class _SignupState extends State<Signup> {
                            child: DropdownButton<String>(
                                 
                                 
-                          value: dropdownValue,
+                          value: _plan,
                           iconDisabledColor:cyandeg2 ,
                           iconEnabledColor: cyandeg2,
                         elevation: 10,
@@ -259,7 +288,7 @@ class _SignupState extends State<Signup> {
                           ),
                          onChanged: (String newValue) {
                                         setState(() {
-                                        dropdownValue = newValue;
+                                      _plan = newValue;
                                          });
                                   },
         items: <String>['Personal Use', 'For Business']
@@ -293,41 +322,6 @@ class _SignupState extends State<Signup> {
                        
                        ),
 
-                       Padding(
-                         padding: EdgeInsets.all(10),
-                         child:  Text('________ or ________',
-                         style: TextStyle(fontSize: 20,fontWeight: FontWeight.w300,
-                         color: cyandeg2
-
-                       ),
-                       
-                       ) ,
-                       ),
-                      ButtonTheme(
-                         minWidth: 250,
-                         child: RaisedButton(
-                           onPressed: (){},
-                           disabledColor: Colors.grey,
-                           disabledTextColor: Colors.black,
-              //            onPressed: (){
-              //   Navigator.of(context).pop();
-              //   Navigator.of(context).push(MaterialPageRoute(
-              //   builder: (BuildContext context)=>//GOOGLE CHECK
-              // ));
-              // },
-                         color:bgcolor,
-                         colorBrightness: Brightness.dark,
-                         child: Text('Sign Up With Google',
-                         style: TextStyle(
-                           fontSize: 20,
-                           color: cyandeg2,
-                           fontWeight: FontWeight.w500
-                         ),
-                         ),
-
-                       ),
-                       
-                       ),
                      
                      ],
 
@@ -356,3 +350,4 @@ class _SignupState extends State<Signup> {
   );
   }
 }
+
