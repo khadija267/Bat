@@ -1,11 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:noiseplug/styles.dart';
+//import 'package:stripe_payment/stripe_payment.dart';
 class Business extends StatefulWidget {
   @override
   _BusinessState createState() => _BusinessState();
 }
 
 class _BusinessState extends State<Business> {
+void initState(){
+  super.initState();
+  // StripePayment.setOptions(
+  //   StripeOptions(
+  //     publishableKey: "pk_test_3v89wg8fK2qfvyjbTa9I9wAN00WYdRZiz6"
+  //    // merchantId: ""
+
+  //   )
+  // );
+}
+
   @override
   Widget build(BuildContext context) {
  return   Scaffold(
@@ -33,7 +45,15 @@ class _BusinessState extends State<Business> {
         ),
       ),
       child: Center(
-        child: Icon(Icons.lock,color: iconcolor,size: 50,),
+        child: FlatButton(
+          textColor: bgcolor,
+          color: Colors.redAccent,
+          child: Text("test purchase",),
+          onPressed: (){
+            //addSource.
+          },
+
+        ),
       ),
       
       ),

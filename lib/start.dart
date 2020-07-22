@@ -7,6 +7,10 @@ import 'package:noiseplug/drawer/terms.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:noiseplug/api.dart';
+import 'dart:convert';
+
+import 'package:noiseplug/test_api.dart';
 
 class Start extends StatefulWidget {
 
@@ -15,6 +19,8 @@ class Start extends StatefulWidget {
 }
 
 class _StartState extends State<Start> {
+  var data;
+  String url;
   FirebaseUser user;
   Future<void>getUserData()async{
     FirebaseUser userData=await FirebaseAuth.instance.currentUser();
@@ -81,7 +87,7 @@ class _StartState extends State<Start> {
               accountEmail:user.email.isEmpty?
                Text("Not Provided Email",style: TextStyle(color: cyandeg1)):
                Text("${user.email}",style: TextStyle(color: cyandeg1)),
-              accountName: Text("Company Name",style: TextStyle(color: cyandeg2)),
+              accountName: Text("Company :",style: TextStyle(color: cyandeg2)),
                 currentAccountPicture:  GestureDetector(
                 child: new CircleAvatar(
                   
@@ -173,11 +179,18 @@ class _StartState extends State<Start> {
       ),
       ),
   child: Center(
+    
     child: RawMaterialButton(
+
       //focusColor: bgcolor,
       hoverColor: bgcolor,
       disabledElevation: 0,
-  onPressed: () {},
+  onPressed: (){
+     Navigator.of(context).pop();
+                Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context)=>Test()
+              ));
+  },
   child: new Icon(
     
      Icons.pause,
