@@ -7,11 +7,6 @@ import 'package:noiseplug/drawer/terms.dart';
 import 'package:noiseplug/signin.dart';
 import 'package:noiseplug/styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:noiseplug/api.dart';
-import 'dart:convert';
-
-import 'package:noiseplug/test_api.dart';
-
 class Start extends StatefulWidget {
 
   @override
@@ -186,10 +181,7 @@ class _StartState extends State<Start> {
       hoverColor: bgcolor,
       disabledElevation: 0,
   onPressed: (){
-     Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Test()
-              ));
+
   },
   child: new Icon(
     

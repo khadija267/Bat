@@ -145,7 +145,7 @@ class _SigninState extends State<Signin> {
                            return null;
                          },
                          onSaved: (val)=>_email=val,
-                         autofocus: false,
+                         autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
                       borderSide: BorderSide(color: bgcolor),   
@@ -179,7 +179,7 @@ class _SigninState extends State<Signin> {
                          },
                          onSaved: (val)=>_password=val,
                          obscureText: true,
-                         autofocus: false,
+                         autofocus: true,
                          decoration: InputDecoration(
                         enabledBorder: UnderlineInputBorder(      
                       borderSide: BorderSide(color: bgcolor),   

@@ -41,7 +41,7 @@ class Faqs extends StatelessWidget {
           style:TextStyle(fontSize: 17 ,color: cyandeg1)),
           children: <Widget>[
             Padding(padding: EdgeInsets.all(10),
-            child:Text("It's for Denoising the Surroundings.",
+            child:Text("It's for investigation of malfunctioning machines.",
             style:TextStyle(fontSize: 15 ,color: cyandeg2),
             
             ))
@@ -112,21 +112,6 @@ class Faqs extends StatelessWidget {
             )
           ],
           ),
-          custom.ExpansionTile(
-                  iconColor: iconcolor,
-            title: Text("How to delete My Account?",
-          style:TextStyle(fontSize: 17 ,color: cyandeg1)),
-          children: <Widget>[
-            Padding(padding: EdgeInsets.all(10),
-            child:Text("No Problem just click here",
-            style:TextStyle(fontSize: 15 ,color: cyandeg2),
-            
-            ))
-          ],
-          ),
-
-
-
 
         ],
       ),
