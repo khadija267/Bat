@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:noiseplug/drawer/MyAccount.dart';
-import 'package:noiseplug/drawer/business.dart';
 import 'package:noiseplug/drawer/faqs.dart';
 import 'package:noiseplug/drawer/privacy.dart';
 import 'package:noiseplug/drawer/terms.dart';
@@ -44,13 +43,14 @@ class _StartState extends State<Start> {
   }
   Widget build(BuildContext context) {
      return Scaffold(
+       
        key: _scaffoldKey,
       appBar: AppBar(
         //Color.fromARGB(255, 50, 76,82)
         backgroundColor:bgcolor,
                   elevation: 0,         
            leading: new IconButton(
-                icon: new Icon(Icons.sort,color: iconcolor,size: 35,),
+                icon: new Icon(Icons.sort,color: Colors.redAccent,size: 35,),
                 onPressed: () => _scaffoldKey.currentState.openDrawer())),
       
       drawer: Theme(data:  Theme.of(context).copyWith(
@@ -110,15 +110,7 @@ class _StartState extends State<Start> {
               ));
               }
             ),
-            ListTile(
-              title: Text("NP for business",style: TextStyle(color: cyandeg1),),
-              onTap: (){
-                Navigator.of(context).pop();
-                Navigator.of(context).push(MaterialPageRoute(
-                builder: (BuildContext context)=>Business()
-              ));
-              }
-            ),
+
             ListTile(
               title: Text("FAQs",style: TextStyle(color: cyandeg1),),
                             onTap: (){

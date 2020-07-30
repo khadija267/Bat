@@ -45,7 +45,7 @@ class Terms extends StatelessWidget {
           Padding(padding: EdgeInsets.all(7,),
           child: Align(
             alignment: Alignment.centerLeft,
-            child: Text("These terms and conditions (Terms, Agreement) are an agreement between Mobile Application Developer (Mobile Application Developer, us, we or our) and you (User, you or your). This Agreement sets forth the general terms and conditions of your use of the NoisePlug mobile application and any of its products or services (collectively, Mobile Application or Services)",
+            child: Text("These terms and conditions (Terms, Agreement) are an agreement between Mobile Application Developer (Mobile Application Developer, us, we or our) and you (User, you or your). This Agreement sets forth the general terms and conditions of your use of the Bat mobile application and any of its products or services (collectively, Mobile Application or Services)",
             style:TextStyle(fontSize: 10 ,color: cyandeg2)
           ),
           ) ,

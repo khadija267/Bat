@@ -33,7 +33,11 @@ class _SigninState extends State<Signin> {
   
   
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+      title: 'Bat',
+      
+    
+    home : Scaffold(
     //resizeToAvoidBottomPadding: true,
     //resizeToAvoidBottomInset: false,
     body:
@@ -245,6 +249,6 @@ class _SigninState extends State<Signin> {
  
   //  ) singlescrollview
      
-  );
+  ));
 }
   }
